@@ -1,8 +1,17 @@
 import React, {useState} from 'react'
+import axios from 'axios'
 
 const CreateSong = () => {
     const [songTitle, setSongTitle] = useState("")
     const [songArtist, setSongArtist] = useState("")
+    function createSong(){
+        axios.post(`http://localhost:3000/songs`, {
+        song:{
+            title: songTitle,
+            artist: songArtist
+        }
+        })
+    }
     return (
         <div>
             <input
@@ -15,6 +24,9 @@ const CreateSong = () => {
                 value={songArtist}
                 onChange={(e) => setSongArtist(e.target.value)}
             />
+            <button onClick={createSong}> 
+                Create Song
+            </button>
         </div>
     )
 }
