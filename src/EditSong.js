@@ -3,6 +3,8 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 
 const EditSong = (props) => {
+    const [songTitle, setSongTitle] = useState("")
+    const [songArtist, setSongArtist] = useState("")
 
     const [song, setSong] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -12,7 +14,8 @@ const EditSong = (props) => {
         axios.get(`http://localhost:3000/songs/${props.songId}`)
             .then(res => {
                 setIsLoading(false)
-                setSong(res.data)
+                setSongTitle(res.data.title)
+                setSongArtist(res.data.artist)
             })
             .catch(e => {
                 setErrorMessage("There was a problem, please refresh and try again")
@@ -25,11 +28,17 @@ const EditSong = (props) => {
             {errorMessage && <h3>{errorMessage}</h3>}
             {!isLoading ? 
                 <div>
-                {song.title}
+                    <input
+                value={songTitle}
+                onChange={(e) => setSongTitle(e.target.value)}
+            />
+            <input
+                value={songArtist}
+                onChange={(e) => setSongArtist(e.target.value)}
+            />
                 </div> : 
                 <h2>Loading...</h2>
             }
-            <Link to="/">View all songs</Link>
             
         </div>
     )
