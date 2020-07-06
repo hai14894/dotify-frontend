@@ -6,17 +6,24 @@ const CreateSong = () => {
     const [songTitle, setSongTitle] = useState("")
     const [songArtist, setSongArtist] = useState("")
     const [isCreated, setisCreated] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
     function createSong(){
-        axios.post(`http://localhost:3000/songs`, {
+        if(songTitle && songArtist){
+            axios.post(`http://localhost:3000/songs`, {
         song:{
             title: songTitle,
             artist: songArtist
             }
         })
         .then(()=> setisCreated(true))
+        }else{
+            setErrorMessage("Please fill out the field")
+        }
+        
     }
     return (
         <div>
+            {errorMessage}<br/>
             <input
                 placeholder="Song title"
                 value={songTitle}
