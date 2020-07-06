@@ -25,7 +25,7 @@ const ViewSongs = () => {
             <>
             {songs.map((song, index) => (
                     <li key={`${song}-${index}`}>
-                        {index+1}. {song.title} by {song.artist}
+                        {song.id}. {song.title} by {song.artist}
                         <Link to={`/songs/${song.id}`}>View</Link>
                         <DeleteSong 
                             songId={song.id}
